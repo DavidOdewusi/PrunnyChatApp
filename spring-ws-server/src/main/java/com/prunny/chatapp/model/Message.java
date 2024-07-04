@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Entity
-public class Message {
+public class Message extends AuditBaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
@@ -19,7 +19,8 @@ public class Message {
     private String senderName;
     private String receiverName;
     private String message;
-    private String date;
     @Enumerated(value = EnumType.STRING)
     private Status status;
+    @ManyToOne
+    private User user;
 }
