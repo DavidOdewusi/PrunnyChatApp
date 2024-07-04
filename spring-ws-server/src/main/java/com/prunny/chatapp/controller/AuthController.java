@@ -4,6 +4,7 @@ import com.prunny.chatapp.dto.LoginDTO;
 import com.prunny.chatapp.dto.UserDTO;
 import com.prunny.chatapp.dto.UserResponseDTO;
 import com.prunny.chatapp.service.UserService;
+import com.prunny.chatapp.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final UserService userServiceImpl;
+    private final UserServiceImpl userServiceImpl;
 
     @PostMapping("signup")
     public ResponseEntity<UserResponseDTO> signUp(@RequestBody UserDTO userDTO) {

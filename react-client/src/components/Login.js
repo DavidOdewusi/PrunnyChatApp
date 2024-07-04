@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
-const Signup = () => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+const Login = ({ onLogin }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch('http://localhost:8097/auth/signup', {
+        const response = await fetch('http://localhost:8097/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ firstName, lastName, email, password }),
+            body: JSON.stringify({ email, password }),
         });
         const data = await response.json();
         if (response.ok) {
-            navigate('/login');  // Navigate to the login page
+            onLogin(data);
+            navigate('/');  // Navigate to the home page or dashboard
         } else {
             alert(data.message);
         }
@@ -27,26 +26,7 @@ const Signup = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <h2>Signup</h2>
-
-            <div>
-                <label>First Name:</label>
-                <input
-                    type="text"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    required
-                />
-            </div>
-            <div>
-                <label>Last Name:</label>
-                <input
-                    type="text"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    required
-                />
-            </div>
+            <h2>Login</h2>
             <div>
                 <label>Email:</label>
                 <input
@@ -65,9 +45,12 @@ const Signup = () => {
                     required
                 />
             </div>
-            <button type="submit">Signup</button>
+            <button type="submit">Login</button>
+            <div>
+                <p>Don't have an account? <Link to="/signup">Sign up here</Link></p>
+            </div>
         </form>
     );
 };
 
-export default Signup;
+export default Login;

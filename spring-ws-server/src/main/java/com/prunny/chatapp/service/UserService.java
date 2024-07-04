@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-@Service
 public interface UserService {
 
     ResponseEntity<UserResponseDTO> registerUser(UserDTO userDTO);
